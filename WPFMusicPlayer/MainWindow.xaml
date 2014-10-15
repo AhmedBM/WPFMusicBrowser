@@ -14,8 +14,8 @@
         </Grid.ColumnDefinitions>
 
         <Label Grid.Column="0" Grid.Row="0" Content="Artists" />
-        <Label Grid.Column="1" Grid.Row="0" Content="Albums" />
-        <Label Grid.Column="2" Grid.Row="0" Content="Songs" />
+        <Label Grid.Column="1" Grid.Row="0" Content="{Binding ElementName=lvArtists, Path=SelectedItem.Albums.Count, FallbackValue=0}" ContentStringFormat="{}{0} Albums" />
+        <Label Grid.Column="2" Grid.Row="0" Content="{Binding ElementName=lvAlbums, Path=SelectedItem.Songs.Count, FallbackValue=0}" ContentStringFormat="{}{0} Songs" />
 
         <!-- Artist -->
         <ListView x:Name="lvArtists" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding}">
