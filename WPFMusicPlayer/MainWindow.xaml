@@ -52,13 +52,6 @@
         <!-- Song -->
         <DataGrid x:Name="lvSongs" Grid.Column="2" Grid.Row="1" ItemsSource="{Binding ElementName=lvAlbums, Path=SelectedItem.Songs}" CanUserSortColumns="True" IsReadOnly="True" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTemplateColumn Header="Title" Width="*" SortMemberPath="Title" CanUserSort="True" IsReadOnly="True">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Title}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Length" Width="Auto" SortMemberPath="Length" CanUserSort="True" IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -71,6 +64,13 @@
                                     </MultiBinding>
                                 </TextBlock.Text>
                             </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Title" Width="*" SortMemberPath="Title" CanUserSort="True" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Title}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
