@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Web.Script.Serialization;
 using System.Windows;
+using MahApps.Metro.Controls;
 using WPFMusicPlayer.Model;
 
 namespace WPFMusicPlayer
@@ -10,7 +11,7 @@ namespace WPFMusicPlayer
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
         public MainWindow()
         {
