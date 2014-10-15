@@ -1,30 +1,90 @@
 ﻿<Window x:Class="WPFMusicPlayer.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Music Player" Height="400" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <Label Grid.Column="0" Grid.Row="0" Content="Artists" />
         <Label Grid.Column="1" Grid.Row="0" Content="Albums" />
         <Label Grid.Column="2" Grid.Row="0" Content="Songs" />
 
-        <ListView Grid.Column="0" Grid.Row="1">
-            <Label Content="Test1" />
+        <!-- Artist -->
+        <ListView x:Name="lvArtists" Grid.Column="0" Grid.Row="1" ItemsSource="{Binding}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <WrapPanel>
+                        <TextBlock Text="{Binding Path=Name}"/>
+                    </WrapPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
-        <ListView Grid.Column="1" Grid.Row="1">
-            <Label Content="Test2" />
+
+        <!-- Album -->
+        <!-- Disabled horizontal scrolling to allow the wrap panel to do its magic (wrapping) -->
+        <ListView x:Name="lvAlbums" Grid.Column="1" Grid.Row="1" ItemsSource="{Binding ElementName=lvArtists, Path=SelectedItem.Albums}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <!-- Every element will be wrapped within the grid -->
+                    <WrapPanel />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Vertical">
+                        <Image Width="100" Height="100" Stretch="Fill" Source="{Binding Image}"/>
+                        <Label Content="{Binding Title}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
-        <ListView Grid.Column="2" Grid.Row="1">
-            <Label Content="Test3" />
-        </ListView>
+
+        <!-- Song -->
+        <DataGrid x:Name="lvSongs" Grid.Column="2" Grid.Row="1" ItemsSource="{Binding ElementName=lvAlbums, Path=SelectedItem.Songs}" IsReadOnly="True" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Title" Width="*" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Title}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Length" Width="Auto" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <!-- TODO: Parsed as Hour, Minute instead of Minute, Second -->
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0:D2}:{1:D2}">
+                                        <Binding Path="Length.Hours" />
+                                        <Binding Path="Length.Minutes" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Favorite" Width="Auto" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image x:Name="IMG" Source="/WPFMusicPlayer;component/Resources/heart.png" Stretch="Uniform" Height="20"/>
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding Path=Favorite}" Value="False">
+                                    <Setter Property="Source" Value="{x:Null}" TargetName="IMG"/>
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>

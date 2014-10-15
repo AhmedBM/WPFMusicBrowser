@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WPFMusicPlayer.Model
 {
@@ -11,7 +7,7 @@ namespace WPFMusicPlayer.Model
     {
         #region Members
         private Artist _artist;
-        private ObservableCollection<AlbumViewModel> _albums; 
+        private ObservableCollection<AlbumViewModel> _albums;
         #endregion
 
         #region Constructor
@@ -31,6 +27,15 @@ namespace WPFMusicPlayer.Model
                 RaisePropertyChangedEvent("Name");
             }
         }
+        public ObservableCollection<AlbumViewModel> Albums
+        {
+            get { return _albums; }
+            set
+            {
+                _albums = value;
+                RaisePropertyChangedEvent("Albums");
+            }
+        }
         #endregion
     }
 
@@ -38,7 +43,7 @@ namespace WPFMusicPlayer.Model
     {
         #region Members
         private Album _album;
-        private ObservableCollection<SongtViewModel> _songs;
+        private ObservableCollection<SongViewModel> _songs;
         #endregion
 
         #region Constructor
@@ -76,26 +81,35 @@ namespace WPFMusicPlayer.Model
                 RaisePropertyChangedEvent("Date");
             }
         }
-        public string ImageUri
+        public string Image
         {
-            get { return _album._imageUri; }
+            get { return _album._image; }
             set
             {
-                _album._imageUri = value;
-                RaisePropertyChangedEvent("ImageUri");
+                _album._image = value;
+                RaisePropertyChangedEvent("Image");
+            }
+        }
+        public ObservableCollection<SongViewModel> Songs
+        {
+            get { return _songs; }
+            set
+            {
+                _songs = value;
+                RaisePropertyChangedEvent("Songs");
             }
         }
         #endregion
     }
 
-    class SongtViewModel : BaseViewModel
+    class SongViewModel : BaseViewModel
     {
         #region Members
         private Song _song;
         #endregion
 
         #region Constructor
-        public SongtViewModel()
+        public SongViewModel()
         {
             _song = new Song();
         }
@@ -118,6 +132,15 @@ namespace WPFMusicPlayer.Model
             {
                 _song._length = value;
                 RaisePropertyChangedEvent("Length");
+            }
+        }
+        public bool Favorite
+        {
+            get { return _song._favorite; }
+            set
+            {
+                _song._favorite = value;
+                RaisePropertyChangedEvent("Favorite");
             }
         }
         #endregion
