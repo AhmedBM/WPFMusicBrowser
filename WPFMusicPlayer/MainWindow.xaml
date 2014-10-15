@@ -1,0 +1,30 @@
+﻿<Window x:Class="WPFMusicPlayer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Column="0" Grid.Row="0" Content="Artists" />
+        <Label Grid.Column="1" Grid.Row="0" Content="Albums" />
+        <Label Grid.Column="2" Grid.Row="0" Content="Songs" />
+
+        <ListView Grid.Column="0" Grid.Row="1">
+            <Label Content="Test1" />
+        </ListView>
+        <ListView Grid.Column="1" Grid.Row="1">
+            <Label Content="Test2" />
+        </ListView>
+        <ListView Grid.Column="2" Grid.Row="1">
+            <Label Content="Test3" />
+        </ListView>
+    </Grid>
+</Window>
